@@ -1,0 +1,51 @@
+package provas;
+
+import java.util.Arrays;
+
+public class QuickSelect {
+
+	public static int sort(int[] array, int left, int right, int k) {
+		if (right <= left || array.length <= right || left < 0 || k > array.length - 1)
+			return -1;
+
+		int pivot = partition(array, left, right);
+		if (pivot == k - 1) {
+			return array[pivot];
+		} else if (pivot < k - 1) {
+			// Arrays.toString(array);
+			return sort(array, pivot + 1, right, k);
+		} else {
+			// Arrays.toString(array);
+			return sort(array, left, pivot - 1, k);
+
+		}
+
+	}
+
+	public static int partition(int[] array, int left, int right) {
+		int pivot = array[left];
+		int index = left;
+		for (int i = 1 + left; i <= right; i++) {
+			if (array[i] <= pivot) {
+				index++;
+				swap(array, i, index);
+			}
+		}
+		swap(array, left, index);
+		return index;
+	}
+
+	public static void swap(int[] array, int i, int j) {
+		int aux = array[i];
+		array[i] = array[j];
+		array[j] = aux;
+	}
+
+	public static void main(String[] args) {
+		int[] array = new int[] { 0, 1, 9, 7, 1, 2, 3, 4 };
+		// 0,1,1,2,3,4,7,9
+		System.out.println(sort(array, 0, array.length - 1, 8));
+
+	}
+
+}
